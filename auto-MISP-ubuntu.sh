@@ -388,11 +388,11 @@ print_status "Installing MISP extra modules.."
 dir_check /var/log/misp_mod_logs/
 chown -R www-data:www-data /var/log/misp_mod_logs
 cd /usr/local/src/
-sudo git clone https://github.com/MISP/misp-modules.git
+sudo git clone https://github.com/MISP/misp-modules.git &>> $logfile
 error_check "Download of MISP modules"
 cd misp-modules
-sudo pip3 install -I -r REQUIREMENTS &>> $logfile
-sudo pip3 install -I .
+pip3 install -I -r REQUIREMENTS &>> $logfile
+pip3 install -I .
 error_check 'MISP module requirement installation'
 sudo -u www-data /usr/local/bin/misp-modules &> /var/log/misp_mod_logs/misp_mod_logs-`date +%Y-%m-%d:%H:%M:%S`.log &
 error_check 'MISP module script'
