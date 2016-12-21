@@ -108,7 +108,7 @@ if [ $(whoami) != "root" ]; then
 	print_error "This script must be ran with sudo or root privileges."
 	exit 1
 else
-	print_good "We are root."
+	print_good "We are groot!"
 fi
 	 
 ########################################
@@ -124,9 +124,9 @@ error_check 'System updates'
 ########################################
 #These packages are required to run MISP. I've also included a couple of basic system administration packages (ntp and ntpdate), as well as a package to help with entropy/RNG for gpg key generation
 
-print_status "Installing: vim curl gnupg-agent git redis-server zip gcc make sudo binutils openssl imagemagick memcached mcrypt python python-dev python-pip libxml2-dev libxslt1-dev zlib1g-dev mariadb-client mariadb-server apache2 apache2-doc apache2-utils apache2-suexec-pristine libapache2-mod-fcgid libapache2-mod-fastcgi libapache2-modsecurity  php7.0 libapache2-mod-php php-dev php7.0-common php-redis php7.0-gd php-mysql php7.0-cli php7.0-cgi php-pear php-auth php7.0-mcrypt php7.0-curl php7.0-intl php7.0-pspell php7.0-recode php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php-memcache php-imagick php-gettext ntp ntpdate php7.0-zip php7.0-opcache php-apcu php7.0-fpm php-crypt-gpg rng-tools python3-dev python3-pip libpq5.."
+print_status "Installing: vim curl gnupg-agent git redis-server zip gcc make sudo binutils openssl imagemagick memcached mcrypt python python-dev python-pip libxml2-dev libxslt1-dev zlib1g-dev mariadb-client mariadb-server apache2 apache2-doc apache2-utils apache2-suexec-pristine libapache2-mod-fcgid libapache2-mod-fastcgi libapache2-modsecurity  php7.0 libapache2-mod-php php-dev php7.0-common php-redis php7.0-gd php-mysql php7.0-cli php7.0-cgi php-pear php-auth php7.0-mcrypt php7.0-curl php7.0-intl php7.0-pspell php7.0-recode php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php-memcache php-imagick php-gettext ntp ntpdate php7.0-zip php7.0-opcache php-apcu php7.0-fpm php-crypt-gpg rng-tools python3-dev python3-pip libpq5 libjpeg-dev.."
 
-declare -a packages=( vim curl gnupg-agent git redis-server zip gcc make sudo binutils openssl imagemagick memcached mcrypt python python-dev python-pip libxml2-dev libxslt1-dev zlib1g-dev mariadb-client mariadb-server apache2 apache2-doc apache2-utils apache2-suexec-pristine libapache2-mod-fcgid libapache2-mod-fastcgi libapache2-modsecurity php7.0 libapache2-mod-php php-dev php7.0-common php-redis php7.0-gd php-mysql php7.0-cli php7.0-cgi php-pear php-auth php7.0-mcrypt php7.0-curl php7.0-intl php7.0-pspell php7.0-recode php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php-memcache php-imagick php-gettext php7.0-zip php7.0-opcache php-apcu php7.0-fpm php-crypt-gpg rng-tools python3-dev python3-pip libpq5 );
+declare -a packages=( vim curl gnupg-agent git redis-server zip gcc make sudo binutils openssl imagemagick memcached mcrypt python python-dev python-pip libxml2-dev libxslt1-dev zlib1g-dev mariadb-client mariadb-server apache2 apache2-doc apache2-utils apache2-suexec-pristine libapache2-mod-fcgid libapache2-mod-fastcgi libapache2-modsecurity php7.0 libapache2-mod-php php-dev php7.0-common php-redis php7.0-gd php-mysql php7.0-cli php7.0-cgi php-pear php-auth php7.0-mcrypt php7.0-curl php7.0-intl php7.0-pspell php7.0-recode php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php-memcache php-imagick php-gettext php7.0-zip php7.0-opcache php-apcu php7.0-fpm php-crypt-gpg rng-tools python3-dev python3-pip libpq5 python3-dev python3-pip libpq5 libjpeg-dev);
 install_packages ${packages[@]}
 
 ########################################
@@ -387,7 +387,6 @@ error_check 'Installation of pyzmq and redis'
 print_status "Installing MISP extra modules.."
 dir_check /var/log/misp_mod_logs/
 chown -R www-data:www-data /var/log/misp_mod_logs
-sudo apt-get install python3-dev python3-pip libpq5 libjpeg-dev
 cd /usr/local/src/
 sudo git clone https://github.com/MISP/misp-modules.git
 error_check "Download of MISP modules"
