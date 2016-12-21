@@ -385,17 +385,17 @@ error_check 'Installation of pyzmq and redis'
 #The python script logs both sterr and stout to /var/log/misp_mod_logs
 
 print_status "Installing MISP extra modules.."
-
-dir_check /opt/misp_mod
 dir_check /var/log/misp_mod_logs/
 chown -R www-data:www-data /var/log/misp_mod_logs
-cd /opt/misp_mod
-git clone https://github.com/MISP/misp-modules.git &>> $logfile
+sudo apt-get install python3-dev python3-pip libpq5 libjpeg-dev
+cd /usr/local/src/
+sudo git clone https://github.com/MISP/misp-modules.git
 error_check "Download of MISP modules"
 cd misp-modules
-pip3 install -r REQUIREMENTS &>> $logfile
+sudo pip3 install -I -r REQUIREMENTS &>> $logfile
+sudo pip3 install -I .
 error_check 'MISP module requirement installation'
-sudo -u www-data python3 /opt/misp_mod/misp-modules/bin/misp-modules.py &> /var/log/misp_mod_logs/misp_mod_logs-`date +%Y-%m-%d:%H:%M:%S`.log &
+sudo -u www-data /usr/local/bin/misp-modules &> /var/log/misp_mod_logs/misp_mod_logs-`date +%Y-%m-%d:%H:%M:%S`.log &
 error_check 'MISP module script'
 
 ########################################
@@ -409,7 +409,7 @@ else
 	cp /etc/rc.local /etc/rc.local.bak
 	sed -i "s#exit 0##" /etc/rc.local
 	echo "sudo -u www-data bash /var/www/MISP/app/Console/worker/start.sh" >> /etc/rc.local
-	echo "sudo -u www-data python3 /opt/misp_mod/misp-modules/bin/misp-modules.py &> /var/log/misp_mod_logs/misp_mod_logs-`date +%Y-%m-%d:%H:%M:%S`.log &" >> /etc/rc.local
+	echo "sudo -u www-data misp-modules &> /var/log/misp_mod_logs/misp_mod_logs-`date +%Y-%m-%d:%H:%M:%S`.log &" >> /etc/rc.local
 	echo "exit 0" >> /etc/rc.local
 	print_good "rc.local successfully modified"
 fi
@@ -426,7 +426,7 @@ error_check 'apache2 service restart'
 
 print_good "script completed successfully."
 print_notification "MISP installed at: /var/www/MISP"
-print_notification "MISP modules installed at:/opt/misp_mod/misp-modules"
+print_notification "MISP modules installed at:/usr/local/src/misp-modules"
 print_notification "I highly recommend accessing your MISP instance via IP address (https://x.x.x.x)"
 print_notification "Default credentials: admin@admin.test//admin"
 print_notification "Obviously, you'll want to change this upon login."
